@@ -15,7 +15,7 @@ class BrandDisOrderRouteServiceProvider extends RouteServiceProvider
 	 */
 	public function map(Router $router)
 	{
-		$router->get('save_order', 'BrandDisOrder\EventProcedures\Procedures\SaveOrder@saveOrder');
+		$router->get('save_order', 'BrandDisOrder\Controllers\ContentController@runOrder');
 
 	}
 
