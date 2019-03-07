@@ -4,11 +4,11 @@ namespace BrandDisOrder\EventProcedures\Procedures;
 use Plenty\Modules\EventProcedures\Events\EventProceduresTriggered;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Modules\Order\Models\Legacy\Order;
-use Plenty\Plugin\Log\Loggable;
+#use Plenty\Plugin\Log\Loggable;
 
 class SaveOrder
 {
-    use Loggable;
+    #use Loggable;
     /**
      * @param EventProceduresTriggered $event
      * @return void
