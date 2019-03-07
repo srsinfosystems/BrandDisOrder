@@ -1,0 +1,8 @@
+{
+      "name":"BrandDisOrder",
+      "description":"Update order on dropshipper",
+      "namespace":"BrandDisOrder",
+      "author":"Arun Singh",
+      "type":"service",
+      "serviceProvider":"BrandDisOrder\\Providers\\BrandDisOrderServiceProvider"
+}
