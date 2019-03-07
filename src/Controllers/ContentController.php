@@ -22,6 +22,7 @@ class ContentController extends Controller
 	}
 	public function saveOrderMap($order_id) {
 		$orders = $this->main_order($order_id);
+		echo $orders; exit;
         $orders = json_decode($orders, TRUE);
 
 		if($orders['statusId'] != "5") exit;
