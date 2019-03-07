@@ -27,7 +27,6 @@ class ContentController extends Controller
 		if($orders['statusId'] != "5") exit;
 		if($orders['relations'][0]['referenceId'] != "104") exit;
 
-        $orderRepository = pluginApp(OrderRepositoryContract::class);
         $orderItemsData = $this->order($order_id);
         $orderItemsData = json_decode($orderItemsData, TRUE);
 		if(empty($orderItemsData)) exit;
