@@ -56,12 +56,12 @@ class ContentController extends Controller
             $OrderProducts[] = array('modelId'=>"$stock_id", 'qty'=>"$qty");
 
         }
-		echo json_encode($OrderProducts);
+
         $reserveOrder = $this->reserve($operationData);
-        echo json_encode($reserveOrder);
+
         $lockedOrder = $this->lockedOrder();
         $acquireOrder = $this->acquireOrder($OrderProducts);
-        echo $acquireOrder;
+
         //echo json_encode($acquireOrder)
         $customerDetail = $this->customerDetail($order_id);
         $customerDetail['order_number'] = $acquireOrder;
