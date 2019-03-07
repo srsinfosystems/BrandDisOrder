@@ -22,7 +22,6 @@ class ContentController extends Controller
 	}
 	public function saveOrderMap($order_id) {
 		$orders = $this->main_order($order_id);
-		echo $orders; exit;
         $orders = json_decode($orders, TRUE);
 
 		if($orders['statusId'] != "5") exit;
@@ -90,11 +89,11 @@ class ContentController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "https://".$host."/rest/orders/".$orderId."/items",
+          CURLOPT_URL => $plentyhost."/rest/orders/".$orderId,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
+          CURLOPT_TIMEOUT => 90000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
@@ -147,7 +146,7 @@ class ContentController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
+          CURLOPT_TIMEOUT => 900000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "POST",
           CURLOPT_POSTFIELDS => $requestData,
@@ -182,7 +181,7 @@ class ContentController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
+          CURLOPT_TIMEOUT => 900000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
@@ -390,7 +389,7 @@ class ContentController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
+          CURLOPT_TIMEOUT => 90000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
@@ -479,7 +478,7 @@ class ContentController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
+          CURLOPT_TIMEOUT => 900000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
@@ -553,7 +552,7 @@ class ContentController extends Controller
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
+      CURLOPT_TIMEOUT => 90000,
       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
       CURLOPT_CUSTOMREQUEST => "PUT",
       CURLOPT_POSTFIELDS => "{\n\t\"plentyId\": 42296,\n\t\"statusId\":6\n}",
@@ -589,7 +588,7 @@ class ContentController extends Controller
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 30,
+          CURLOPT_TIMEOUT => 90000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "POST",
           CURLOPT_POSTFIELDS => "{\n\t\"orderId\": $orderId,\n\t\"typeId\": 15,\n\t\"value\": $flagValue\n\t\n}",
