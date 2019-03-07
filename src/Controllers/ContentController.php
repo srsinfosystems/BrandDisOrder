@@ -23,11 +23,12 @@ class ContentController extends Controller
 	public function saveOrderMap($order_id) {
 		$orders = $this->main_order($order_id);
         $orders = json_decode($orders, TRUE);
-		echo $orders; exit;
+		echo $orders;
 		if($orders['statusId'] != "5") exit;
 		if($orders['relations'][0]['referenceId'] != "104") exit;
 
         $orderItemsData = $this->order($order_id);
+        echo $orderItemsData;
         $orderItemsData = json_decode($orderItemsData, TRUE);
 		if(empty($orderItemsData)) exit;
 
@@ -55,10 +56,10 @@ class ContentController extends Controller
             $OrderProducts[] = array('modelId'=>"$stock_id", 'qty'=>"$qty");
 
         }
-
+		echo json_encode($OrderProducts);
         $reserveOrder = $this->reserve($operationData);
         $lockedOrder = $this->lockedOrder();
-        $acquireOrder = $this->acquireOrder($OrderProducts);
+        echo $acquireOrder = $this->acquireOrder($OrderProducts);
         $customerDetail = $this->customerDetail($order_id);
         $customerDetail['order_number'] = $acquireOrder;
         foreach ($orderItemsData['entries'] as  $value) {
@@ -89,7 +90,7 @@ class ContentController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => $plentyhost."/rest/orders/".$orderId,
+          CURLOPT_URL => "https://".$host."/rest/orders/".$orderId,
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
