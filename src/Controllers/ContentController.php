@@ -33,13 +33,16 @@ class ContentController extends Controller
         $operationData = array();
         $OrderProducts = array();
         foreach ($orderItemsData['entries'] as  $value) {
+			if(empty($value['itemVariationId'])) continue;
 
             $getVariation = $this->getVariation($value['itemVariationId']);
             $getVariation = json_decode($getVariation, TRUE);
 
             $stock_id = $getVariation['entries'][0]['number'];
             $qty = $value['quantity'];
-
+			$operationData[] = array(
+               "stock_id"=>"$stock_id", "qty"=>"$qty");
+			/*
             if ($value['lockStatus']=="permanentlyLocked") {
                 $operationData[] = array(
                 "lock"=>array("stock_id"=>"$stock_id", "qty"=>"$qty"));
@@ -48,16 +51,18 @@ class ContentController extends Controller
                 $operationData[] = array(
                 "unlock"=>array("stock_id"=>"$stock_id", "qty"=>"$qty"));
             }
-            /*$operationData[] = array(
-                "set"=>array("stock_id"=>"$stock_id", "qty"=>"$qty"));*/
+            */
 
             $OrderProducts[] = array('modelId'=>"$stock_id", 'qty'=>"$qty");
 
         }
 		echo json_encode($OrderProducts);
         $reserveOrder = $this->reserve($operationData);
+        echo json_encode($reserveOrder);
         $lockedOrder = $this->lockedOrder();
         $acquireOrder = $this->acquireOrder($OrderProducts);
+        echo $acquireOrder;
+        //echo json_encode($acquireOrder)
         $customerDetail = $this->customerDetail($order_id);
         $customerDetail['order_number'] = $acquireOrder;
         foreach ($orderItemsData['entries'] as  $value) {
@@ -71,7 +76,7 @@ class ContentController extends Controller
 
         }
 
-        if (!empty($acquireOrder)) {
+        if (!empty($acquireOrder) && is_numeric($acquireOrder)) {
           $UpdateStatus = $this->UpdateStatus($order_id);
           $OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
         }
@@ -118,7 +123,7 @@ class ContentController extends Controller
 
     public function reserve($operationData){
         $operationLock = '<operation type="lock">';
-        foreach ($operationData['lock'] as $value) {
+        foreach ($operationData as $value) {
             $operationLock .= ' <model stock_id="'.$value['stock_id'].'" quantity="'.$value['qty'].'" />';
         }
         $operationLock .= '</operation>';
@@ -135,9 +140,8 @@ class ContentController extends Controller
         $operationSet .= '</operation>';
 		*/
         $requestData = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <root>
-            $operationLock
-        </root>';
+        <root>'.$operationLock.'</root>';
+
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
