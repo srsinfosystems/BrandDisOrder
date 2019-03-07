@@ -94,7 +94,7 @@ class SaveOrder
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "GET",
           CURLOPT_HTTPHEADER => array(
-            "authorization: Bearer ".$this->access_token,
+            "authorization: Bearer ".$access_token,
             "cache-control: no-cache",
             "postman-token: 77b15284-d14b-3b3f-c085-904253595e91"
           ),
