@@ -18,17 +18,15 @@ class ContentController extends Controller
 	private $shouldReturn;
 	public function runOrder() {
 		$this->shouldReturn = "yes";
-		$this->saveOrderMap('109');
+		$this->saveOrderMap('110');
 	}
 	public function saveOrderMap($order_id) {
 		$orders = $this->main_order($order_id);
         $orders = json_decode($orders, TRUE);
-		echo $orders;
 		if($orders['statusId'] != "5") exit;
 		if($orders['relations'][0]['referenceId'] != "104") exit;
 
         $orderItemsData = $this->order($order_id);
-        echo $orderItemsData;
         $orderItemsData = json_decode($orderItemsData, TRUE);
 		if(empty($orderItemsData)) exit;
 
@@ -59,7 +57,7 @@ class ContentController extends Controller
 		echo json_encode($OrderProducts);
         $reserveOrder = $this->reserve($operationData);
         $lockedOrder = $this->lockedOrder();
-        echo $acquireOrder = $this->acquireOrder($OrderProducts);
+        $acquireOrder = $this->acquireOrder($OrderProducts);
         $customerDetail = $this->customerDetail($order_id);
         $customerDetail['order_number'] = $acquireOrder;
         foreach ($orderItemsData['entries'] as  $value) {
@@ -78,7 +76,7 @@ class ContentController extends Controller
           $OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
         }
         if($this->shouldReturn == "yes") {
-			return $acquireOrder;
+			echo json_encode($acquireOrder);
 		}
 	}
 	public function main_order($orderId){
