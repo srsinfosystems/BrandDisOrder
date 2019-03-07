@@ -594,7 +594,7 @@ class ContentController extends Controller
           CURLOPT_TIMEOUT => 90000,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => "POST",
-          CURLOPT_POSTFIELDS => "{\n\t\"orderId\": $orderId,\n\t\"typeId\": 15,\n\t\"value\": $flagValue\n\t\n}",
+          CURLOPT_POSTFIELDS => "{\n\t\"orderId\": $orderId,\n\t\"typeId\": 7,\n\t\"value\": $flagValue\n\t\n}",
           CURLOPT_HTTPHEADER => array(
             "authorization: Bearer ".$access_token,
             "cache-control: no-cache",
