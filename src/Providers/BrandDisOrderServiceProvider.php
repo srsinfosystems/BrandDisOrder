@@ -23,6 +23,10 @@ class BrandDisOrderServiceProvider extends ServiceProvider
 
 
 	}
+	public function register()
+	{
+		$this->getApplication()->register(BrandDisOrderRouteServiceProvider::class);
+	}
 
 
 }
