@@ -61,14 +61,14 @@ class ContentController extends Controller
         }
 		if(empty($OrderProducts)) exit;
 
-        $reserveOrder = $this->reserve($operationData);
+        //$reserveOrder = $this->reserve($operationData);
 
-        $lockedOrder = $this->lockedOrder();
-        $acquireOrder = $this->acquireOrder($OrderProducts);
+       // $lockedOrder = $this->lockedOrder();
+       // $acquireOrder = $this->acquireOrder($OrderProducts);
 
         //echo json_encode($acquireOrder)
         $customerDetail = $this->customerDetail($order_id);
-        $customerDetail['order_number'] = $acquireOrder;
+        $customerDetail['order_number'] = $order_id;
         $SingleRecipientOrder = $this->SingleRecipientOrder($customerDetail, $OrderProducts);
         /*
         foreach ($orderItemsData['entries'] as  $value) {
@@ -84,7 +84,7 @@ class ContentController extends Controller
 		*/
         if (!empty($acquireOrder) && is_numeric($acquireOrder)) {
           $UpdateStatus = $this->UpdateStatus($order_id);
-          $OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
+          //$OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
         }
         if($this->shouldReturn == "yes") {
 			echo json_encode($acquireOrder);
