@@ -69,6 +69,7 @@ class ContentController extends Controller
         //echo json_encode($acquireOrder)
         $customerDetail = $this->customerDetail($order_id);
         $customerDetail['order_number'] = $order_id;
+        $acquireOrder = $order_id;
         $SingleRecipientOrder = $this->SingleRecipientOrder($customerDetail, $OrderProducts);
         /*
         foreach ($orderItemsData['entries'] as  $value) {
