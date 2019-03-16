@@ -21,11 +21,19 @@ class ContentController extends Controller
 		//$this->saveOrderMap('110');
 	}
 	public function saveOrderMap($order_id) {
-		exit;
+
 		$orders = $this->main_order($order_id);
         $orders = json_decode($orders, TRUE);
 		if($orders['statusId'] != "5") exit;
 		if($orders['relations'][0]['referenceId'] != "104") exit;
+
+		if(isset($orders['properties'])) {
+			foreach($orders['properties'] as $property) {
+				if($property['typeId'] == "7" && is_numeric($property['value'])) {
+					exit;
+				}
+			}
+		}
 
         $orderItemsData = $this->order($order_id);
         $orderItemsData = json_decode($orderItemsData, TRUE);
@@ -66,6 +74,8 @@ class ContentController extends Controller
         //echo json_encode($acquireOrder)
         $customerDetail = $this->customerDetail($order_id);
         $customerDetail['order_number'] = $acquireOrder;
+        $SingleRecipientOrder = $this->SingleRecipientOrder($customerDetail, $OrderProducts);
+        /*
         foreach ($orderItemsData['entries'] as  $value) {
 
             $getVariation = $this->getVariation($value['itemVariationId']);
@@ -76,7 +86,7 @@ class ContentController extends Controller
             $SingleRecipientOrder = $this->SingleRecipientOrder($customerDetail, $stock_id, $qty);
 
         }
-
+		*/
         if (!empty($acquireOrder) && is_numeric($acquireOrder)) {
           $UpdateStatus = $this->UpdateStatus($order_id);
           $OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
@@ -246,7 +256,13 @@ class ContentController extends Controller
         }
     }
 
-    public function SingleRecipientOrder($recipientData, $stock_id, $qty){
+    public function SingleRecipientOrder($recipientData, $OrderProducts){
+
+        $products = "";
+        foreach($OrderProducts as $product) {
+			$products .= "<item><stock_id>".$product['modelId']."</stock_id><quantity>".$product['qty']."</quantity></item>";
+		}
+
         $requestData = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <root>
     <order_list>
@@ -273,11 +289,7 @@ class ContentController extends Controller
                     <number>".$recipientData['number']."</number>
                 </phone>
             </recipient_details>
-            <item_list>
-                <item>
-                    <stock_id>".$stock_id."</stock_id>
-                    <quantity>".$qty."</quantity>
-                </item>
+            <item_list>".$products."
             </item_list>
         </order>
     </order_list>
