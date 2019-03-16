@@ -54,6 +54,7 @@ class ContentController extends Controller
             $OrderProducts[] = array('modelId'=>"$stock_id", 'qty'=>"$qty");
 
         }
+		if(empty($OrderProducts)) exit;
 
         $reserveOrder = $this->reserve($operationData);
 
