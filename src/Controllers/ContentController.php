@@ -51,17 +51,6 @@ class ContentController extends Controller
             $qty = $value['quantity'];
 			$operationData[] = array(
                "stock_id"=>"$stock_id", "qty"=>"$qty");
-			/*
-            if ($value['lockStatus']=="permanentlyLocked") {
-                $operationData[] = array(
-                "lock"=>array("stock_id"=>"$stock_id", "qty"=>"$qty"));
-            }
-            if ($value['lockStatus']=="unlocked") {
-                $operationData[] = array(
-                "unlock"=>array("stock_id"=>"$stock_id", "qty"=>"$qty"));
-            }
-            */
-
             $OrderProducts[] = array('modelId'=>"$stock_id", 'qty'=>"$qty");
 
         }
