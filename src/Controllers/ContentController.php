@@ -18,7 +18,7 @@ class ContentController extends Controller
 	private $shouldReturn;
 	public function runOrder() {
 		$this->shouldReturn = "yes";
-		$this->saveOrderMap('110');
+		//$this->saveOrderMap('110');
 	}
 	public function saveOrderMap($order_id) {
 		$orders = $this->main_order($order_id);
@@ -446,11 +446,28 @@ class ContentController extends Controller
             $response = json_decode($response, TRUE);
             $detailArray = array();
             $detailArray['date'] = date('Y/m/d h:i:s')." +0000";
-            $detailArray['recipient'] = $response['addresses'][0]['name1'];
-            $detailArray['street_name'] = $response['addresses'][0]['address1'];
-            $detailArray['address_number'] = $response['addresses'][0]['address2'];
-            $detailArray['zip'] = $response['addresses'][0]['postalCode'];
-            $detailArray['city'] = $response['addresses'][0]['town'];
+            $recipient = ""; $street_name = ""; $address_number = ""; $zip = ""; $city = "";
+            if(isset($response['addresses'][0])) {
+				$recipient = $response['addresses'][0]['name3']." ".$response['addresses'][0]['name2'];
+				$street_name = $response['addresses'][0]['address2'].", ".$response['addresses'][0]['address1'].", ".$response['addresses'][0]['address3'];
+				$address_number = $response['addresses'][0]['address2'];
+				$zip = $response['addresses'][0]['postalCode'];
+				$city = $response['addresses'][0]['town'];
+			}
+			if(isset($response['addresses'][1])) {
+				$recipient = $response['addresses'][1]['name3']." ".$response['addresses'][1]['name2'];
+				$street_name = $response['addresses'][1]['address2'].", ".$response['addresses'][1]['address1'].", ".$response['addresses'][1]['address3'];
+				$address_number = $response['addresses'][1]['address2'];
+				$zip = $response['addresses'][1]['postalCode'];
+				$city = $response['addresses'][1]['town'];
+			}
+
+            $detailArray['date'] = date('Y/m/d h:i:s')." +0000";
+            $detailArray['recipient'] = $recipient;
+            $detailArray['street_name'] = $street_name;
+            $detailArray['address_number'] = $address_number;
+            $detailArray['zip'] = $zip;
+            $detailArray['city'] = $city;
             $countryId = $response['addresses'][0]['countryId'];
             $countryCode = $this->getCountryCode($countryId);
             $detailArray['countrycode'] = $countryCode;
