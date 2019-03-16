@@ -48,6 +48,11 @@ class ContentController extends Controller
             $getVariation = json_decode($getVariation, TRUE);
 
             $stock_id = $getVariation['entries'][0]['number'];
+            if(empty($stock_id)) continue;
+            $item_id = $getVariation['entries'][0]['itemId'];
+            $flag = $this->isFlagThree($item_id);
+            if($flag == 0) continue;
+
             $qty = $value['quantity'];
 			$operationData[] = array(
                "stock_id"=>"$stock_id", "qty"=>"$qty");
@@ -635,6 +640,46 @@ class ContentController extends Controller
           return "cURL Error #:" . $err;
         } else {
           return $response;
+        }
+    }
+
+    public function isFlagThree($id){
+        $login = $this->login();
+        $login = json_decode($login, true);
+        $access_token = $login['access_token'];
+        //$host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://".$host."/rest/items/".$id,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 90000,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "authorization: Bearer ".$access_token,
+            "cache-control: no-cache"
+          ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+          return "cURL Error #:" . $err;
+        } else {
+          $response = json_decode($response, TRUE);
+          if(isset($response['flagTwo']) && $response['flagTwo'] == "3") {
+			return "1";
+		  }
+		  else {
+			return "0";
+		  }
         }
     }
 
