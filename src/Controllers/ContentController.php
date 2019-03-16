@@ -88,8 +88,8 @@ class ContentController extends Controller
 		$login = $this->login();
 		$login = json_decode($login, true);
 		$access_token = $login['access_token'];
-		$host = $_SERVER['HTTP_HOST'];
-
+		//$host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -318,7 +318,8 @@ class ContentController extends Controller
         $login = $this->login();
         $login = json_decode($login, true);
         $access_token = $login['access_token'];
-        $host = $_SERVER['HTTP_HOST'];
+        //$host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
 
         $curl = curl_init();
 
@@ -349,7 +350,8 @@ class ContentController extends Controller
         }
     }
     public function login(){
-        $host = $_SERVER['HTTP_HOST'];
+        //$host = $_SERVER['HTTP_HOST'];
+        $host = "joiurjeuiklb.plentymarkets-cloud02.com";
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => "https://".$host."/rest/login",
@@ -383,8 +385,8 @@ class ContentController extends Controller
         $login = $this->login();
         $login = json_decode($login, true);
         $access_token = $login['access_token'];
-        $host = $_SERVER['HTTP_HOST'];
-
+        //$host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -416,8 +418,8 @@ class ContentController extends Controller
         $login = $this->login();
         $login = json_decode($login, true);
         $access_token = $login['access_token'];
-        $host = $_SERVER['HTTP_HOST'];
-
+        //$host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -489,8 +491,8 @@ class ContentController extends Controller
         $login = $this->login();
         $login = json_decode($login, true);
         $access_token = $login['access_token'];
-        $host = $_SERVER['HTTP_HOST'];
-
+        //$host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -564,7 +566,8 @@ class ContentController extends Controller
     $login = $this->login();
     $login = json_decode($login, true);
     $access_token = $login['access_token'];
-    $host = $_SERVER['HTTP_HOST'];
+    //$host = $_SERVER['HTTP_HOST'];
+    $host = "joiurjeuiklb.plentymarkets-cloud02.com";
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -600,8 +603,8 @@ class ContentController extends Controller
         $login = $this->login();
         $login = json_decode($login, true);
         $access_token = $login['access_token'];
-        $host = $_SERVER['HTTP_HOST'];
-
+       // $host = $_SERVER['HTTP_HOST'];
+		$host = "joiurjeuiklb.plentymarkets-cloud02.com";
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
