@@ -675,7 +675,7 @@ class ContentController extends Controller
           return "cURL Error #:" . $err;
         } else {
           $response = json_decode($response, TRUE);
-          if(isset($response['flagTwo']) && $response['flagTwo'] == "3") {
+          if(isset($response['flagTwo']) && ($response['flagTwo'] == "3" || $response['flagTwo'] == "1")) {
 			return "1";
 		  }
 		  else {
