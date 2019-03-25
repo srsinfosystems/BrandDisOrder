@@ -17,8 +17,9 @@ class ContentController extends Controller
 	 */
 	private $shouldReturn;
 	public function runOrder() {
+		$order_id = $_GET['order_id'];
 		$this->shouldReturn = "yes";
-		$this->testOrder('436');
+		$this->testOrder($order_id);
 	}
 	public function testOrder($order_id) {
 		$orders = $this->main_order($order_id);
