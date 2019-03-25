@@ -18,7 +18,16 @@ class ContentController extends Controller
 	private $shouldReturn;
 	public function runOrder() {
 		$this->shouldReturn = "yes";
-		//$this->saveOrderMap('110');
+		$this->testOrder('436');
+	}
+	public function testOrder($order_id) {
+		$orders = $this->main_order($order_id);
+        $orders = json_decode($orders, TRUE);
+        echo json_encode($orders);
+        echo "<br><br>---------------------------";
+        $orderItemsData = $this->order($order_id);
+        $orderItemsData = json_decode($orderItemsData, TRUE);
+        echo json_encode($orderItemsData);
 	}
 	public function saveOrderMap($order_id) {
 
@@ -50,8 +59,8 @@ class ContentController extends Controller
             $stock_id = $getVariation['entries'][0]['number'];
             if(empty($stock_id)) continue;
             $item_id = $getVariation['entries'][0]['itemId'];
-            $flag = $this->isFlagThree($item_id);
-            if($flag == 0) continue;
+            //$flag = $this->isFlagThree($item_id);
+            //if($flag == 0) continue;
 
             $qty = $value['quantity'];
 			$operationData[] = array(
