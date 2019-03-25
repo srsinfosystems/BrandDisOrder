@@ -35,7 +35,7 @@ class ContentController extends Controller
         $orders = json_decode($orders, TRUE);
 		if($orders['statusId'] != "5") exit;
 		if($orders['relations'][0]['referenceId'] != "104") exit;
-
+		/*
 		if(isset($orders['properties'])) {
 			foreach($orders['properties'] as $property) {
 				if($property['typeId'] == "7" && is_numeric($property['value'])) {
@@ -43,7 +43,7 @@ class ContentController extends Controller
 				}
 			}
 		}
-
+		*/
         $orderItemsData = $this->order($order_id);
         $orderItemsData = json_decode($orderItemsData, TRUE);
 		if(empty($orderItemsData)) exit;
