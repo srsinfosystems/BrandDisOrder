@@ -95,7 +95,7 @@ class ContentController extends Controller
 		*/
         if (!empty($acquireOrder) && is_numeric($acquireOrder)) {
           $UpdateStatus = $this->UpdateStatus($order_id);
-          //$OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
+          $OrderFlagProperty = $this->OrderFlagProperty($order_id, $acquireOrder);
         }
         if($this->shouldReturn == "yes") {
 			echo json_encode($acquireOrder);
